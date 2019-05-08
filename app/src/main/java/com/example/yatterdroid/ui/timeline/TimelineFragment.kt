@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import androidx.lifecycle.Observer
 import com.example.yatterdroid.R
 import kotlinx.android.synthetic.main.timeline_fragment.*
 
@@ -29,10 +30,12 @@ class TimelineFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(TimelineViewModel::class.java)
-        // TODO: Use the ViewModel
 
-        var strArr = arrayOf("These", "are", "sample")
-        timelineSlot.adapter = ArrayAdapter<String>(this.context, android.R.layout.simple_list_item_1, strArr);
+        // live dataをobserve
+        viewModel.getStatuses().observe(this, Observer<MutableList<String>> { list ->
+            timelineSlot.adapter = ArrayAdapter<String>(this.context, android.R.layout.simple_list_item_1, list);
+        })
+        viewModel.getStatuses().value!!.add("yeah")
     }
 
 }
