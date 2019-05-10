@@ -33,4 +33,20 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
+
+    def coroutines_version = '1.2.1' //Kotlin coroutines用ライブラリ(async, await)のバージョン
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_version" //Kotlin coroutines用ライブラリ(async, await)
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version" //Kotlin coroutines用ライブラリ(async, await)
+
+    // retrofit, http client
+    def retrofit_ver = '2.5.0'
+    def moshi_ver = '1.5.0'
+    def okhttp3_ver = '3.10.0'
+    implementation "com.squareup.retrofit2:retrofit:$retrofit_ver"
+    implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.9.1'
+    implementation "com.squareup.moshi:moshi:$moshi_ver"
+    implementation "com.squareup.moshi:moshi-kotlin:$moshi_ver"
+    implementation "com.squareup.retrofit2:converter-moshi:$retrofit_ver"
+    implementation "com.squareup.okhttp3:okhttp:$okhttp3_ver"
 }
