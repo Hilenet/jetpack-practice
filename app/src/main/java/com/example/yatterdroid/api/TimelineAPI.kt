@@ -1,7 +1,5 @@
 package com.example.yatterdroid.api
 
-import android.provider.Settings.Global.getString
-import com.example.yatterdroid.R
 import retrofit2.Call
 import retrofit2.Response
 import retrofit2.Retrofit
@@ -30,6 +28,5 @@ object TimelineAPI {
         val tl = service.fetchPublic().execute()
         return tl
     }
-
 
 }

@@ -4,26 +4,17 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.yatterdroid.api.Status
 import com.example.yatterdroid.api.TimelineAPI
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.*
 import java.lang.Exception
-import kotlin.concurrent.thread
 
 
 class TimelineViewModel : ViewModel() {
-
+    // delegate使ってよい感じに
     var statuses: MutableLiveData<MutableList<Status>> = MutableLiveData()
 
     init {
         loadStatuses()
     }
-//    private var statuses: MutableLiveData<List<Status>>by lazy {
-//
-//        MutableLiveData<List<String>>().also {
-//            it.value = loadStatuses()
-//        }
-//    }
 
     // とりあえず同期的にfetch
     private fun loadStatuses() {
@@ -33,17 +24,19 @@ class TimelineViewModel : ViewModel() {
         // TODO: learn coroutine and make asynchronous
         runBlocking {
             try {
-                thread {
+                // IOを別スレッドにdispatchしてくれるように
+                launch(context = Dispatchers.IO, block = {
+
                     val li = client.fetchTimelinePublic().body()
                     if (li != null) {
                         res = li.toMutableList()
                     }
-                }.join()
+                })
             } catch (e: Exception) {
                 println(e)
             }
         }
-        statuses = MutableLiveData<MutableList<Status>>().also { it.value = res }
+        statuses.value = res
     }
 
 }
