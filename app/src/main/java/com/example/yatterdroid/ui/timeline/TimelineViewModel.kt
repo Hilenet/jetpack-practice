@@ -2,6 +2,7 @@ package com.example.yatterdroid.ui.timeline
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.yatterdroid.api.Account
 import com.example.yatterdroid.api.Status
 import com.example.yatterdroid.api.TimelineAPI
 import kotlinx.coroutines.*

@@ -35,11 +35,10 @@ class TimelineFragment : Fragment() {
 
         // live dataをobserve
         viewModel.statuses.observe(this, Observer<MutableList<Status>> { list ->
-            // val tl = list.map { if(it.content==null)  "" else it.content }
-            // timelineSlot.adapter = ArrayAdapter<String>(this.context, android.R.layout.simple_list_item_1, tl)
+            val tl = list.map { if(it.content==null)  "" else it.content }
+            timelineSlot.adapter = ArrayAdapter<String>(this.context, android.R.layout.simple_list_item_1, tl)
             timelineSlot.adapter = StatusListAdapter(this.context!!, list)
         })
-        viewModel.statuses.value!!.add(Status(100, "yeah"))
     }
 
 }

@@ -35,7 +35,7 @@ class StatusListAdapter (context: Context, statuses: List<Status>) : ArrayAdapte
         }
 
         val status = getItem(index) as Status
-        holder.accountnameView.text = "accountname"
+        holder.accountnameView.text = status.account.display_name
         holder.statusContentView.text = status.content
         // holder.statusIconView.setImageBitmap(    status.account.avatar as imageId  )
 

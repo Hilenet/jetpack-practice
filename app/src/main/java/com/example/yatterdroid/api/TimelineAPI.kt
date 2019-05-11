@@ -7,7 +7,8 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Path
 
-data class Status(val id: Int, val content: String)
+data class Account(var username: String, var display_name: String, var avatar: String)
+data class Status(var id: Int, var content: String, var account: Account)
 
 interface TimelineService {
     @GET("v1/timelines/public")
