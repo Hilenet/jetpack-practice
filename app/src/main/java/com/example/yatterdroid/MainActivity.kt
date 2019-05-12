@@ -1,7 +1,11 @@
 package com.example.yatterdroid
 
+import android.app.Activity
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.navigation.Navigation.findNavController
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.NavigationUI.setupActionBarWithNavController
 import com.example.yatterdroid.ui.timeline.TimelineFragment
 
 class MainActivity : AppCompatActivity() {
@@ -10,12 +14,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        // appContainerに代入
-        // mainActivityの一要素として，飽くまでContainerの中
-        if (savedInstanceState == null) {
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.appContainer, TimelineFragment.newInstance())
-                .commitNow()
-        }
+        val navController = findNavController(findViewById(R.id.main_nav_host))
+        // TODO: appBarって何だ？？？
+        val appBarConfiguration = AppBarConfiguration.Builder(navController.graph).build()
+        setupActionBarWithNavController(this, navController, appBarConfiguration)
     }
 }
