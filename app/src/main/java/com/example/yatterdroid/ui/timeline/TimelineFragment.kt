@@ -14,6 +14,7 @@ import androidx.navigation.fragment.NavHostFragment.findNavController
 import com.example.yatterdroid.R
 import com.example.yatterdroid.api.Status
 import kotlinx.android.synthetic.main.fragment_timeline.*
+import kotlinx.android.synthetic.main.fragment_timeline.view.*
 import kotlinx.android.synthetic.main.status_item.view.*
 
 
@@ -26,13 +27,16 @@ class TimelineFragment : Fragment() {
     ): View {
         //　TODO: attachToRootつけたら落ちるの何故？
         val view = inflater.inflate(R.layout.fragment_timeline, container, false)
-        view.findViewById<ListView>(R.id.timelineSlot).setOnItemClickListener { parent, view, position, id ->
+        view.timelineSlot.setOnItemClickListener { parent, view, position, id ->
             view.statusIconView.setOnClickListener {
                 val accountname = view.findViewById<TextView>(R.id.usernameView).text.toString()
                 val bundle = bundleOf("accountname" to accountname)
 
                 findNavController(this).navigate(R.id.action_timeline_account, bundle)
             }
+        }
+        view.toYatterButton.setOnClickListener {
+            findNavController(this).navigate(R.id.action_timeline_yatter)
         }
 
         return view

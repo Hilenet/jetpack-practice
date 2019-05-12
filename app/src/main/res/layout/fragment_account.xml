@@ -12,7 +12,7 @@
             app:layout_constraintTop_toTopOf="parent" android:layout_marginTop="24dp"
             app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="24dp"
             android:contentDescription="account icon image"/>
-    <EditText
+    <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
@@ -20,17 +20,17 @@
             android:ems="10"
             android:id="@+id/accountDisplayNameView" android:layout_marginTop="24dp"
             app:layout_constraintTop_toBottomOf="@+id/imageView" app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="24dp"/>
-    <EditText
+            android:layout_marginStart="24dp" android:textSize="20sp" android:textColor="@android:color/black"/>
+    <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
             android:text="Name"
             android:ems="10"
-            android:id="@+id/accountUsernameView" android:layout_marginTop="24dp"
+            android:id="@+id/accountUsernameView" android:layout_marginTop="8dp"
             app:layout_constraintTop_toBottomOf="@id/accountDisplayNameView"
             app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="24dp"/>
+            android:layout_marginStart="24dp" android:textSize="15sp"/>
     <TextView
             android:text="TextView"
             android:layout_width="wrap_content"
