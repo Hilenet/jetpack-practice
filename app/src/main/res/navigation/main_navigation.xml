@@ -6,11 +6,15 @@
 
     <fragment android:id="@+id/timelineFragment" android:name="com.example.yatterdroid.ui.timeline.TimelineFragment"
               android:label="timeline_fragment" tools:layout="@layout/fragment_timeline">
-        <action android:id="@+id/action_timeline_yatter" app:destination="@id/yatterFragment"/>
-        <action android:id="@+id/action_timeline_account" app:destination="@id/accountFragment"/>
+        <action android:id="@+id/action_timeline_yatter" app:destination="@id/yatterFragment"
+                app:popUpTo="@+id/timelineFragment"/>
+        <action android:id="@+id/action_timeline_account" app:destination="@id/accountFragment"
+                app:popUpTo="@+id/timelineFragment"/>
     </fragment>
     <fragment android:id="@+id/yatterFragment" android:name="com.example.yatterdroid.ui.yatter.YatterFragment"
               android:label="fragment_yatter" tools:layout="@layout/fragment_yatter"/>
     <fragment android:id="@+id/accountFragment" android:name="com.example.yatterdroid.ui.account.AccountFragment"
-              android:label="AccountFragment"/>
+              android:label="AccountFragment" tools:layout="@layout/fragment_account">
+        <argument android:name="accountname" app:argType="string"/>
+    </fragment>
 </navigation>

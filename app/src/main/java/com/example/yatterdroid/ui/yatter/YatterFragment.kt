@@ -12,7 +12,6 @@ class YatterFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        //　TODO: attachToRootつけたら落ちるの何故？
         return inflater.inflate(R.layout.fragment_yatter, container, false)
     }
 }

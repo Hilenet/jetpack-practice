@@ -4,14 +4,16 @@ import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
+import retrofit2.http.Path
 
-interface TimelineService {
-    @GET("v1/timelines/public")
-    fun fetchPublic(): Call<List<Status>>
+
+interface AccountService {
+    @GET("v1/accounts/{accountname}")
+    fun fetch(@Path("accountname") account: String): Call<Account>
+
 }
 
-object TimelineAPI {
-
+object AccountAPI {
     private fun restClient(): Retrofit {
         return Retrofit.Builder()
             .baseUrl("https://hile.ninja")
@@ -19,9 +21,9 @@ object TimelineAPI {
             .build()
     }
 
-    fun fetchTimelinePublic(): Call<List<Status>> {
-        val service = restClient().create(TimelineService::class.java)
-        return service.fetchPublic()
+    fun fetchAccount(name: String): Call<Account> {
+        val service = restClient().create(AccountService::class.java)
+        return service.fetch(name)
     }
 
 }

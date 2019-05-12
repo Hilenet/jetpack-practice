@@ -7,6 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ListView
+import android.widget.TextView
+import androidx.core.os.bundleOf
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.NavHostFragment.findNavController
 import com.example.yatterdroid.R
@@ -23,10 +25,13 @@ class TimelineFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         //　TODO: attachToRootつけたら落ちるの何故？
-        var view = inflater.inflate(R.layout.fragment_timeline, container, false)
+        val view = inflater.inflate(R.layout.fragment_timeline, container, false)
         view.findViewById<ListView>(R.id.timelineSlot).setOnItemClickListener { parent, view, position, id ->
             view.statusIconView.setOnClickListener {
-                findNavController(this).navigate(R.id.action_timeline_account)
+                val accountname = view.findViewById<TextView>(R.id.usernameView).text.toString()
+                val bundle = bundleOf("accountname" to accountname)
+
+                findNavController(this).navigate(R.id.action_timeline_account, bundle)
             }
         }
 
