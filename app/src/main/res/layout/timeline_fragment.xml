@@ -11,8 +11,8 @@
     <ListView
             android:layout_width="match_parent"
             android:layout_height="match_parent" android:id="@+id/timelineSlot"
-            app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="32dp"
-            app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="32dp"
-            app:layout_constraintTop_toTopOf="parent" android:layout_marginTop="32dp"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
