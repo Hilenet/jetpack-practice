@@ -24,10 +24,9 @@ object TimelineAPI {
             .build()
     }
 
-    fun fetchTimelinePublic(): Response<List<Status>> {
+    fun fetchTimelinePublic(): Call<List<Status>> {
         val service = restClient().create(TimelineService::class.java)
-        val tl = service.fetchPublic().execute()
-        return tl
+        return service.fetchPublic()
     }
 
 }

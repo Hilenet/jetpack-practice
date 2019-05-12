@@ -2,42 +2,56 @@ package com.example.yatterdroid.ui.timeline
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.yatterdroid.api.Account
 import com.example.yatterdroid.api.Status
 import com.example.yatterdroid.api.TimelineAPI
 import kotlinx.coroutines.*
-import java.lang.Exception
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 
 class TimelineViewModel : ViewModel() {
-    // delegate使ってよい感じに
-    var statuses: MutableLiveData<MutableList<Status>> = MutableLiveData()
+    // delegateはvalのみっぽい
+    var statuses: MutableLiveData<MutableList<Status>> = MutableLiveData<MutableList<Status>>().also {
+        it.value = mutableListOf()
+    }
 
     init {
         loadStatuses()
     }
 
-    // とりあえず同期的にfetch
-    private fun loadStatuses() {
-        lateinit var res: MutableList<Status>
-        val client = TimelineAPI
+    // いい感じにhandleしてpostValueまで
+    private fun addStatuses(diff: List<Status>?) {
+        diff ?: return
+        val before = if (statuses.value != null) statuses.value!! else mutableListOf()
+        val result = (before + diff).toMutableList()
 
-        // TODO: learn coroutine and make asynchronous
-        runBlocking {
-            try {
-                // IOを別スレッドにdispatchしてくれるように
-                launch(context = Dispatchers.IO, block = {
-
-                    val li = client.fetchTimelinePublic().body()
-                    if (li != null) {
-                        res = li.toMutableList()
-                    }
-                })
-            } catch (e: Exception) {
-                println(e)
-            }
+        if (before != result) {
+            statuses.postValue(result)
         }
-        statuses.value = res
+    }
+
+    // 同期的にfetchして追加
+    public fun fetchStatuses() = runBlocking {
+        val res = GlobalScope.async(Dispatchers.IO) {
+            TimelineAPI.fetchTimelinePublic().execute().body()
+        }.await()
+
+        res ?: return@runBlocking
+        addStatuses(res)
+    }
+
+    // 非同期にfetchして追加
+    public fun loadStatuses() = GlobalScope.launch {
+        withContext(Dispatchers.IO) {
+            TimelineAPI.fetchTimelinePublic().enqueue(object : Callback<List<Status>> {
+                override fun onResponse(call: Call<List<Status>>, response: Response<List<Status>>) {
+                    addStatuses(response.body())
+                }
+
+                override fun onFailure(call: Call<List<Status>>, t: Throwable) {}
+            })
+        }
     }
 
 }
